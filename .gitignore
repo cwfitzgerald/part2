@@ -1,0 +1,10 @@
+#Extentionless files
+*
+!/**/
+!*.*
+!**/makefile
+!third-party/
+
+**/compile_commands.json
+**/obj/
+**/depends/
