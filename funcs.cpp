@@ -22,6 +22,7 @@ std::string dedent(std::string line) {
 std::string redent(std::string line) {
 	std::string ret;
 	bool newline = true;
+	bool string = false;
 	std::intmax_t depth = 0;
 	for (char c : line) {
 		if (newline) {
@@ -41,12 +42,23 @@ std::string redent(std::string line) {
 			newline = false;
 		}
 
-		if (c == '{') {
-			depth++;
+		if (c == "\"" && string == false) {
+			string = true;
 		}
-		else if (c == '}') {
-			depth--;
+		else if (c == "\"" && string == true) {
+			string = false;
 		}
+
+		// This probably applies to \n too but class is over now
+		if (string == false) {
+			if (c == '{') {
+				depth++;
+			}
+			else if (c == '}') {
+				depth--;
+			}
+		}
+
 		ret.push_back(c);
 	}
 	return ret;
